@@ -48,10 +48,12 @@
         methods: {
             buyStocks(obj){
                 if (obj.quantity > 0) {
-                    this.entered[obj.name] = true;
-                    this.disabled[obj.name] = true;
-                    this.$store.dispatch('buyStocks', obj)
-                }            
+                    if (this.getFunds >= obj.price * obj.quantity) {
+                        this.entered[obj.name] = true;
+                        this.disabled[obj.name] = true;
+                        this.$store.dispatch('buyStocks', obj)
+                    } else alert("You do not have enough funds for that purchase");
+                } else alert("Please enter a quantity to purchase");
             },
             enable(name){
                 this.disabled[name] = false;
